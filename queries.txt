@@ -1,0 +1,77 @@
+*********************
+This gets the most sold items
+SELECT i.item_name, SUM(s.sales) AS total_sale, SUM(s.quantity) AS total_quantity
+FROM sales s
+JOIN items i
+	ON s.item_id = i.item_id
+GROUP BY i.item_name
+ORDER BY total_sale DESC;
+*********************
+This is for which weeks sold the most
+SELECT w.week_start, w.week_end, SUM(s.sales) AS total_sale, SUM(s.quantity) AS total_quantity
+FROM sales s
+JOIN weeks w
+	ON s.week_id = w.week_id
+GROUP BY w.week_id
+ORDER BY total_sale DESC;
+*********************
+This is to rank each hour by sale
+SELECT s.hour ,SUM(s.sales) AS total_sale, SUM(s.quantity) AS total_quantity
+FROM sales s
+GROUP BY s.hour
+ORDER BY total_sale DESC;
+*********************
+This is ranking each item by quantities sold top 10
+SELECT i.item_name, SUM(s.sales) AS total_sale, SUM(s.quantity) AS total_quantity
+FROM sales s
+JOIN items i
+	ON s.item_id = i.item_id
+GROUP BY i.item_name
+ORDER BY total_quantity DESC
+LIMIT 10;
+*********************
+this is the query used to make the tables
+CREATE TABLE weeks (
+	week_id SERIAL PRIMARY KEY,
+	week_start DATE NOT NULL,
+	week_end DATE NOT NULL
+);
+CREATE TABLE items (
+	item_id SERIAL PRIMARY KEY,
+	item_name VARCHAR(255) NOT NULL UNIQUE
+);
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    week_id INTEGER NOT NULL,
+    item_id INTEGER NOT NULL,
+    hour TIME NOT NULL,
+    sales DECIMAL(10,2) NOT NULL,
+    percent DECIMAL(10,3),
+    quantity DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY (week_id) REFERENCES weeks(week_id),
+    FOREIGN KEY (item_id) REFERENCES items(item_id)
+);
+*********************
+this query is to get the top item for each hour
+WITH ranked_items AS (SELECT
+    s.hour,
+    i.item_name,
+    SUM(s.quantity) AS total_quantity,
+	ROW_NUMBER() OVER(
+		PARTITION BY s.hour
+		ORDER BY SUM(s.quantity) DESC
+	) AS rank
+FROM sales s
+JOIN items i
+    ON s.item_id = i.item_id
+GROUP BY s.hour, i.item_name
+ORDER BY s.hour)
+
+SELECT
+    hour,
+    item_name,
+    total_quantity
+FROM ranked_items
+WHERE rank = 1
+ORDER BY hour;
