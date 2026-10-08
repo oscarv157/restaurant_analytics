@@ -53,5 +53,3 @@ The original POS reports and business sales data are private and are not include
 ## Author
 
 Developed as a project-based data analytics initiative, combining real-world business context with data engineering and visualization.
-
-**Technologies:** Python, Pandas, PostgreSQL, SQL, Streamlit, Plotly
