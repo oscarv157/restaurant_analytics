@@ -4,7 +4,7 @@ from rapidfuzz import process, fuzz
 """This is to fix the spelling"""
 
 #this is to test the code to find any slightly misspelled words
-input_file = "clean_data_files/clean_data.csv"
+input_file = "data_files/clean_data_files/clean_data.csv"
 
 df = pd.read_csv(input_file)
 

@@ -5,10 +5,11 @@ import os
 from sqlalchemy import create_engine
 load_dotenv()
 
+"""STEP 3"""
 """This file is to send the data up to the database. 
     Sends the info into three tables: items, weeks, & sales"""
 
-df = pd.read_csv("clean_data_files/clean_data.csv")
+df = pd.read_csv("data_files/clean_data_files/clean_data.csv")
 
 db_name = os.environ.get("DB_NAME")
 db_user = os.environ.get("DB_USER")
@@ -103,3 +104,10 @@ def make_sales():
 
 # print(df.columns)
 make_sales()
+
+#TO_DO: make a check that once data is on database, empty source folder
+
+def make_all_tables():
+    make_week()
+    make_item()
+    make_sales()

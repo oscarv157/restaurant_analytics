@@ -3,10 +3,13 @@ from tabulate import tabulate
 import re
 from pathlib import Path
 
+"""STEP 1 """
 """This file is combining the data from the xls/text files with the restaurant data into a csv file"""
 
-base_dir = Path("restaurant_raw_data/")
-final_dir = Path("combined_datafiles/")
+#base_dir = Path("data_files/restaurant_raw_data/")
+base_dir = Path("data_files/approved") #this is new base source
+final_dir = Path("data_files/combined_datafiles/")
+#final_dir = Path("") #should also remove the files from approved to this so i add duplicate data
 all_df = []
 
 for file in base_dir.iterdir():
@@ -82,5 +85,9 @@ print(combined_df.shape)
 # print(pretty_table)
 # print(df.isnull().sum)
 combined_df.to_csv(final_dir / "combined_data.csv") #(final_dir / "combined_data.csv", index=False)
+
+
+for item in base_dir.iterdir(): #this removes files from base source to avoid future duplicates
+    item.unlink()
 
 df.to_csv(final_dir,index = False)

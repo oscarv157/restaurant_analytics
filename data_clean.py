@@ -3,12 +3,13 @@ from pathlib import Path
 from rapidfuzz import process, fuzz
 import json
 
+"""STEP 2"""
 """This file will clean up the csv file with the combined restaurant data """
 
-input_file = "combined_datafiles/combined_data.csv"
-spell_file = "clean_data_files/spell_fix.json"
+input_file = Path("data_files/combined_datafiles/combined_data.csv")
+spell_file = "data_files/clean_data_files/spell_fix.json"
 
-output_file = "clean_data_files/clean_data.csv"
+output_file = "data_files/clean_data_files/clean_data.csv"
 file_path = Path(output_file)
 file_path.parent.mkdir(parents=True, exist_ok=True)
 file_path.touch(exist_ok=True)
@@ -117,7 +118,7 @@ comb_df = df.groupby(['week_start','week_end','hour','item'],as_index=False).agg
 print("Repeated items merged")
 
 comb_df = comb_df[~comb_df['item'].str.contains('==', na=False)] ##removing the == filler items
-comb_df = comb_df[~comb_df['item'].str.contains('Cant', na=False)]
+comb_df = comb_df[~comb_df['item'].str.contains('Cant', na=False)] # all of these remove the specified string
 comb_df = comb_df[~comb_df['item'].str.contains('to go', case = False, na=False)]
 comb_df = comb_df[~comb_df['item'].str.contains('mesa', case = False, na=False)]
 comb_df = comb_df[~comb_df['item'].str.contains('Resumen De La Hora', case = False, na=False)]
@@ -125,6 +126,9 @@ print("Filler items removed")
 
 
 # df.to_csv(output_file,index = False)
+
+for item in input_file.iterdir(): #this removes files from base source to avoid future duplicates
+    item.unlink()
 
 comb_df.to_csv(output_file,index = True)
 

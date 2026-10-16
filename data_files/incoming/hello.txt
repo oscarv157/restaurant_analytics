@@ -1,0 +1,2 @@
+test file for the script i am writing.
+the script is to check if there are any files in this folder
