@@ -4,13 +4,13 @@ An end-to-end data analytics project built for a local restaurant in Miami, Flor
 
 ## Overview
 
-While working as a restaurant manager, I noticed that the existing point-of-sale (POS) system provided limited visibility into sales trends, including top-selling menu items, weekly performance, and hourly product performance.
+While working as a restaurant manager, I noticed that the existing point-of-sale (POS) system provided limited/outdated visibility into sales trends, including top-selling menu items, weekly performance, and hourly product performance.
 
-After discussing the idea with the restaurant's owners, I developed a data pipeline and interactive dashboard to transform raw POS reports into structured data and actionable visualizations.
+After discussing the idea with the restaurant's owners, I developed a data pipeline and interactive dashboard to transform raw POS reports into structured data in a visually optimized manner.
 
 ## Project Features
 
-- **ETL Pipeline:** Used Python and Pandas to extract, clean, and transform weekly POS sales reports.
+- **ETL Pipeline:** Used Python and Pandas to extract, clean, and transform weekly POS sales reports from outdated xls files into csv files.
 - **Relational Database:** Designed a PostgreSQL database to organize sales data, menu items, and reporting periods.
 - **SQL Analysis:** Developed queries to analyze sales trends, top-selling items, and product performance across weeks and hours.
 - **Interactive Dashboard:** Built a Streamlit dashboard with Plotly visualizations for exploring sales trends and menu item performance.
@@ -32,7 +32,7 @@ After discussing the idea with the restaurant's owners, I developed a data pipel
 
 POS Reports → Python/Pandas ETL → PostgreSQL Database → SQL Analysis → Streamlit Dashboard
 
-1. **Extract:** Read weekly POS sales reports.
+1. **Extract:** Read weekly POS sales reports from xls files.
 2. **Transform:** Cleaned and standardized menu item names, dates, hourly categories, and sales fields.
 3. **Load:** Organized the processed data into PostgreSQL tables.
 4. **Analyze:** Used SQL queries to examine sales trends and menu item performance.
@@ -48,7 +48,7 @@ The project processed data covering multiple reporting weeks, including:
 
 ## Privacy Notice
 
-The original POS reports and business sales data are private and are not included in this repository. Any publicly shared sample data or screenshots should use synthetic data to protect the restaurant's confidential information.
+The original POS reports and business sales data are private and are not included in this repository. Any publicly shared sample data or screenshots use synthetic data to protect the restaurant's confidential information.
 
 ## Author
 
